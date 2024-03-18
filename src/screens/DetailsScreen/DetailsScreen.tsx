@@ -21,8 +21,6 @@ const DetailsScreen = ({route}: any) => {
   const {id} = route.params;
 
   useEffect(() => {
-    console.log('URL_MOVIES====', URL_MOVIES);
-
     setApiCalled(true);
     axios
       .get(`${URL_MOVIES}/${id}?api_key=${API_KEY}`)
