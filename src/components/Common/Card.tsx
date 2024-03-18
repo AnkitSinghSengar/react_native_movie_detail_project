@@ -13,8 +13,6 @@ import {AirbnbRating} from 'react-native-ratings';
 const Card = (props: any) => {
   const navigation = useNavigation();
 
-  const {width, height} = Dimensions.get('window');
-
   const {
     id,
     backdrop_path,
@@ -24,8 +22,8 @@ const Card = (props: any) => {
     vote_average,
     ...rest
   }: any = props.item;
-  const version = vote_average;
-  const checkVote_average = parseFloat(version).toFixed(1);
+
+  const checkVote_average = parseFloat(vote_average).toFixed(1);
 
   const [star, setStar] = useState(2);
 
@@ -41,12 +39,7 @@ const Card = (props: any) => {
         }}>
         <View style={styles.grid}>
           <Image
-            style={{
-              width: width * 0.42,
-              height: height * 0.3,
-              borderTopRightRadius: 15,
-              borderBottomRightRadius: 15,
-            }}
+            style={styles.imageContainer}
             source={{uri: `https://image.tmdb.org/t/p/w500${backdrop_path}`}}
           />
           <Text style={styles.title} ellipsizeMode="tail" numberOfLines={1}>
@@ -62,12 +55,12 @@ const Card = (props: any) => {
               size={9}
               isDisabled={true}
             />
-            <Text style={styles.vote_average}>({checkVote_average})</Text>
+            <Text style={styles.voting}>({checkVote_average})</Text>
           </View>
 
           <View style={styles.data}>
             <Text style={styles.release_date}>{release_date}</Text>
-            <Text style={styles.vote_count}>Vote({vote_count})</Text>
+            <Text style={styles.voting}>Vote({vote_count})</Text>
           </View>
         </View>
       </TouchableWithoutFeedback>
@@ -77,11 +70,19 @@ const Card = (props: any) => {
 
 export default Card;
 
+const {width, height} = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  imageContainer: {
+    width: width * 0.42,
+    height: height * 0.3,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
   },
   grid: {
     paddingVertical: 12,
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
     color: 'rgba(255, 255, 255, 0.7)',
     fontSize: 12,
   },
-  vote_count: {
+  voting: {
     color: 'rgba(255, 255, 255, 0.5)',
     fontSize: 12,
   },
@@ -105,10 +106,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginTop: -40,
-  },
-  vote_average: {
-    color: 'rgba(255, 255, 255, 0.5)',
-    fontSize: 12,
   },
   desc: {
     color: 'rgba(255, 255, 255, 0.5)',

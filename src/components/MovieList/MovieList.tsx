@@ -13,8 +13,6 @@ const MovieList = () => {
     axios
       .get(`${URL_POPULAR}`)
       .then(res => {
-        console.log('res==', res.data.results);
-
         setMyData(res.data.results);
         setApiCalled(false);
       })
@@ -30,7 +28,7 @@ const MovieList = () => {
   return !isApiCalled ? (
     <View style={{flex: 1}}>
       <FlatList
-        style={{flex: 1, backgroundColor: '#303030'}}
+        style={styles.flatlist}
         data={myData}
         numColumns={2}
         renderItem={renderItem}
@@ -49,5 +47,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+  },
+  flatlist: {
+    flex: 1,
+    backgroundColor: '#303030',
   },
 });

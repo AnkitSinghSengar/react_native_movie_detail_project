@@ -37,7 +37,7 @@ const DetailsScreen = ({route}: any) => {
   }, []);
 
   return !isApiCalled ? (
-    <ScrollView style={{backgroundColor: '#303030'}}>
+    <ScrollView style={styles.scrollContainer}>
       <Image
         style={styles.poster_path}
         source={{
@@ -46,11 +46,7 @@ const DetailsScreen = ({route}: any) => {
       />
 
       <View style={styles.container}>
-        <View
-          style={{
-            alignItems: 'center',
-            flexDirection: 'row',
-          }}>
+        <View style={styles.parentContainer}>
           <View style={styles.subContainer}>
             <Image
               style={styles.backdrop_path1}
@@ -61,21 +57,12 @@ const DetailsScreen = ({route}: any) => {
           </View>
           <View>
             <Text style={styles.title}>{myData.original_title}</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-              }}>
+            <View style={styles.commonContainer}>
               <View>
-                <Text
-                  style={{fontSize: 18, color: 'purple', fontWeight: '600'}}>
+                <Text style={styles.ratingContainer}>
                   {parseFloat(myData.vote_average).toFixed(1)}
                 </Text>
-                <Text
-                  style={{
-                    color: 'white',
-                  }}>
-                  {`Rating  `}
-                </Text>
+                <Text style={styles.textContainer}>{`Rating  `}</Text>
               </View>
               <View>
                 <StarRatingDisplay
@@ -85,47 +72,31 @@ const DetailsScreen = ({route}: any) => {
                   starSize={10}
                   style={{marginTop: 15}}
                 />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: 'white',
-                  }}>
-                  Grade Now
-                </Text>
+                <Text style={styles.textContainer}>Grade Now</Text>
               </View>
             </View>
 
-            <View style={styles.popularityContainer}>
-              <Text style={styles.popularity}>Popularity: </Text>
-              <Text style={styles.popularity}>{myData.popularity}</Text>
+            <View style={styles.commonContainer}>
+              <Text style={styles.textContainer}>Popularity: </Text>
+              <Text style={styles.textContainer}>{myData.popularity}</Text>
             </View>
-            <View style={styles.revenueContainer}>
-              <Text style={styles.revenue}>Revenue: </Text>
-              <Text style={styles.revenue}>${myData.revenue}</Text>
+            <View style={styles.commonContainer}>
+              <Text style={styles.textContainer}>Revenue: </Text>
+              <Text style={styles.textContainer}>${myData.revenue}</Text>
             </View>
           </View>
         </View>
       </View>
 
       <View>
-        <Text style={{color: 'white', fontSize: 20, marginBottom: 8}}>
-          Story Line:-
-        </Text>
+        <Text style={styles.storyContainer}>Story Line:-</Text>
         <ReadMore numberOfLines={3} style={{color: 'white'}}>
           {myData.overview}
         </ReadMore>
       </View>
 
       <View>
-        <Text
-          style={{
-            marginBottom: -40,
-            marginTop: 40,
-            fontSize: 18,
-            color: 'white',
-          }}>
-          Companies:-
-        </Text>
+        <Text style={styles.companyContainer}>Companies:-</Text>
         <FlatList
           style={{marginTop: 40}}
           horizontal={true}
@@ -145,25 +116,10 @@ const DetailsScreen = ({route}: any) => {
 
 export default DetailsScreen;
 
+// StyleSheet
 const styles = StyleSheet.create({
-  activityIndicator: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    margin: 6,
-    padding: 6,
-    flexDirection: 'row',
-  },
-  subContainer: {
-    marginRight: 6,
-    padding: 3,
-    borderRadius: 10,
-  },
-  popularity: {
-    color: 'white',
-    fontSize: 14,
+  scrollContainer: {
+    backgroundColor: '#303030',
   },
   poster_path: {
     height: 310,
@@ -171,6 +127,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomRightRadius: 110,
     borderBottomLeftRadius: 110,
+  },
+  container: {
+    margin: 6,
+    padding: 6,
+    flexDirection: 'row',
+  },
+  parentContainer: {
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  subContainer: {
+    marginRight: 6,
+    padding: 3,
+    borderRadius: 10,
   },
   backdrop_path1: {
     height: 180,
@@ -185,18 +155,32 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
   },
-  vote: {
-    fontSize: 22,
+  ratingContainer: {
+    fontSize: 18,
     color: 'purple',
+    fontWeight: '600',
   },
-  popularityContainer: {
-    flexDirection: 'row',
-  },
-  revenueContainer: {
-    flexDirection: 'row',
-  },
-  revenue: {
-    color: 'white',
+  textContainer: {
     fontSize: 14,
+    color: 'white',
+  },
+  commonContainer: {
+    flexDirection: 'row',
+  },
+  storyContainer: {
+    color: 'white',
+    fontSize: 20,
+    marginBottom: 8,
+  },
+  companyContainer: {
+    marginBottom: -40,
+    marginTop: 40,
+    fontSize: 18,
+    color: 'white',
+  },
+  activityIndicator: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
